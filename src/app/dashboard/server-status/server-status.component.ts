@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-server-status',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './server-status.component.html',
   styleUrl: './server-status.component.css'
 })
-export class ServerStatusComponent implements OnInit {
+export class ServerStatusComponent implements OnInit, AfterViewInit {
   protected currentStatus: 'online' | 'offline' | 'unknown' = 'online';
 
   constructor() {
@@ -16,6 +16,8 @@ export class ServerStatusComponent implements OnInit {
 
   // ngOnInit will run after all the inputs are set
   ngOnInit(): void {
+    console.log('ngOnInit');
+
     setInterval(() => {
       const rnd = Math.random();
 
@@ -33,6 +35,13 @@ export class ServerStatusComponent implements OnInit {
 
       }
     }, 5000);
+
+  }
+
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    console.log('ngAfterViewInit');
 
   }
 }
