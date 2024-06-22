@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, OnDestroy, OnInit, inject } from '@angular/core';
 
 @Component({
   selector: 'app-server-status',
@@ -8,17 +8,21 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
   styleUrl: './server-status.component.css'
 })
 export class ServerStatusComponent implements OnInit, AfterViewInit {
+
   protected currentStatus: 'online' | 'offline' | 'unknown' = 'online';
+  // private interval?: ReturnType<typeof setInterval>;
+  private destroyRef = inject(DestroyRef)
 
   constructor() {
 
   }
 
+
   // ngOnInit will run after all the inputs are set
   ngOnInit(): void {
     console.log('ngOnInit');
 
-    setInterval(() => {
+    const interval = setInterval(() => {
       const rnd = Math.random();
 
       if (rnd < 0.5) {
@@ -36,12 +40,18 @@ export class ServerStatusComponent implements OnInit, AfterViewInit {
       }
     }, 5000);
 
+    this.destroyRef.onDestroy(() => {
+      clearInterval(interval);
+    });
+
   }
 
   ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
     console.log('ngAfterViewInit');
 
   }
+
+  // ngOnDestroy(): void {
+  //   clearTimeout(this.interval);
+  // }
 }
