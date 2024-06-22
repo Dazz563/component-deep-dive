@@ -14,6 +14,7 @@ export class ServerStatusComponent implements OnInit {
 
   }
 
+  // ngOnInit will run after all the inputs are set
   ngOnInit(): void {
     setInterval(() => {
       const rnd = Math.random();
