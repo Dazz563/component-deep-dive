@@ -9,7 +9,7 @@ import { Component, ElementRef, ViewEncapsulation, inject, input } from '@angula
   encapsulation: ViewEncapsulation.None,
   host: {
     class: 'control',
-    '(click)': 'onClick()'
+    // '(click)': 'onClick()'
   }
 })
 export class ControlComponent {
@@ -17,9 +17,9 @@ export class ControlComponent {
 
   private el = inject(ElementRef);
 
-  onClick() {
-    console.log('clicked!');
-    console.log(this.el);
+  // onClick() {
+  //   console.log('clicked!');
+  //   console.log(this.el);
 
-  }
+  // }
 }
