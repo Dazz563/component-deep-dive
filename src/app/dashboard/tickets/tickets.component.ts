@@ -24,4 +24,16 @@ export class TicketsComponent {
 
     this.tickets.push(ticket);
   }
+
+  protected closeTicket(id: string) {
+    this.tickets = this.tickets.map((ticket) => {
+      if (ticket.id === id) {
+        return {
+          ...ticket,
+          status: 'closed'
+        }
+      }
+      return ticket
+    })
+  }
 }
