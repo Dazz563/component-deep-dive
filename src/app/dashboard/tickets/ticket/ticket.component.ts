@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import { ITicket } from '../ticket.model';
 
 @Component({
@@ -9,10 +9,18 @@ import { ITicket } from '../ticket.model';
   styleUrl: './ticket.component.css'
 })
 export class TicketComponent {
-  public data = input.required<ITicket>();
+
   protected detailsVisible = signal(false);
+
+  public data = input.required<ITicket>();
+
+  public emitCloseTicket = output();
 
   protected toggleDetails() {
     this.detailsVisible.set(!this.detailsVisible());
+  }
+
+  protected closeTicket() {
+    this.emitCloseTicket.emit();
   }
 }

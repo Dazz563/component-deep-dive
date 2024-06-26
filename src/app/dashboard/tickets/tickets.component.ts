@@ -15,6 +15,8 @@ export class TicketsComponent {
 
 
   protected postTicket(ticketData: { title: string, request: string }) {
+    console.log(ticketData);
+
     const ticket: ITicket = {
       title: ticketData.title,
       request: ticketData.request,
@@ -23,5 +25,17 @@ export class TicketsComponent {
     }
 
     this.tickets.push(ticket);
+  }
+
+  protected closeTicket(id: string) {
+    this.tickets = this.tickets.map((ticket) => {
+      if (ticket.id === id) {
+        return {
+          ...ticket,
+          status: 'closed'
+        }
+      }
+      return ticket
+    })
   }
 }
