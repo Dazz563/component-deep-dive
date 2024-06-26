@@ -1,13 +1,11 @@
-<form
-  (ngSubmit)="onSubmit(titleInput.value, requestInput.value)"
-  #form
->
+<form (ngSubmit)="onSubmit()">
   <app-control label="Title">
     <input
       id="title"
       type="text"
-      #titleInput
+      name="title"
       #input
+      [(ngModel)]="enteredTitle"
     >
   </app-control>
   <app-control label="Request">
@@ -15,8 +13,9 @@
       id="request"
       type="text"
       rows="3"
-      #requestInput
+      name="request"
       #input
+      [(ngModel)]="enteredRequest"
     ></textarea>
   </app-control>
   <p>

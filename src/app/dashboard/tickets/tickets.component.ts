@@ -15,6 +15,8 @@ export class TicketsComponent {
 
 
   protected postTicket(ticketData: { title: string, request: string }) {
+    console.log(ticketData);
+
     const ticket: ITicket = {
       title: ticketData.title,
       request: ticketData.request,

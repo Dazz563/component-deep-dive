@@ -1,4 +1,4 @@
-import { Component, DestroyRef, ElementRef, OnDestroy, OnInit, inject, output, viewChild } from '@angular/core';
+import { Component, DestroyRef, ElementRef, OnDestroy, OnInit, inject, output, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, fromEvent, map, switchMap } from 'rxjs';
 import { ButtonComponent } from '../../../shared/button/button.component';
@@ -13,16 +13,19 @@ import { ControlComponent } from "../../../shared/control/control.component";
 })
 export class NewTicketComponent implements OnInit {
 
-  private form = viewChild.required<ElementRef<HTMLFormElement>>('form');
+  // private form = viewChild.required<ElementRef<HTMLFormElement>>('form');
   private search = viewChild.required<ElementRef<HTMLInputElement>>('titleInput');
 
-  private destroyRef = inject(DestroyRef)
+  protected enteredTitle = '';
+  protected enteredRequest = '';
 
   public emitTicket = output<{ title: string, request: string }>();
 
+  private destroyRef = inject(DestroyRef)
+
   ngOnInit(): void {
 
-    this.searchTitle();
+    // this.searchTitle();
 
   }
 
@@ -46,17 +49,19 @@ export class NewTicketComponent implements OnInit {
     return new Promise(resolve => setTimeout(() => resolve(title), 1000));
   }
 
-  protected onSubmit(title: string, request: string) {
+  protected onSubmit() {
 
-    if (!title || !request) {
+    if (this.enteredTitle === '' || this.enteredRequest === '') {
 
       return;
 
     }
 
-    this.emitTicket.emit({ title, request });
+    this.emitTicket.emit({ title: this.enteredTitle, request: this.enteredRequest });
 
-    this.form().nativeElement.reset();
+
+    this.enteredTitle = '';
+    this.enteredRequest = '';
 
   }
 
